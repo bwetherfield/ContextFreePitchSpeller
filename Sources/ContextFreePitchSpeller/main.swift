@@ -7,9 +7,15 @@ func getDocumentsDirectory() -> URL {
 }
 
 let filepath = getDocumentsDirectory().appendingPathComponent("pitched_weights.json")
-let data = try Data(contentsOf: filepath)
 
 let decoder = JSONDecoder()
-let lookupTable = try decoder.decode([PitchSpeller.SpellingInverter.PitchedEdge: Double].self, from: data)
 
-print(lookupTable)
+do {
+    let data = try Data(contentsOf: filepath)
+    let lookupTable = try decoder.decode([PitchSpeller.SpellingInverter.PitchedEdge: Double].self, from: data)
+    print(lookupTable)
+} catch let error {
+    print(error.localizedDescription)
+}
+
+
